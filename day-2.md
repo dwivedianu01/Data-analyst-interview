@@ -54,13 +54,11 @@ WHERE d.dept = 'IT';
 
 ### Question
 
-Will this query behave like a LEFT JOIN or INNER JOIN? Explain the execution flow.
+Explain the output and whether this behaves as a LEFT JOIN or INNER JOIN.
 
 ---
 
 ## SQL Question 2
-
-### Query
 
 ```sql
 SELECT e.*
@@ -72,13 +70,11 @@ WHERE d.emp_id IS NULL;
 
 ### Question
 
-What business scenario does this query solve?
+What business requirement does this query solve?
 
 ---
 
 ## SQL Question 3
-
-### Query
 
 ```sql
 SELECT *
@@ -89,13 +85,11 @@ ON e.id = d.emp_id;
 
 ### Question
 
-Can the result contain more rows than the employee table? Explain with reasoning.
+Can this query return more rows than the employee table? Explain.
 
 ---
 
 ## SQL Question 4
-
-### Query
 
 ```sql
 SELECT COUNT(*),
@@ -107,38 +101,27 @@ ON e.id = d.emp_id;
 
 ### Question
 
-Explain the difference between both counts and why their values may differ.
+Why might the two counts be different?
 
 ---
 
 ## SQL Question 5
 
-### Query A
+Compare:
 
 ```sql
-SELECT *
-FROM employees e
-WHERE NOT EXISTS (
-    SELECT 1
-    FROM departments d
-    WHERE d.emp_id = e.id
-);
+NOT EXISTS
 ```
 
-### Query B
+and
 
 ```sql
-SELECT *
-FROM employees
-WHERE id NOT IN (
-    SELECT emp_id
-    FROM departments
-);
+NOT IN
 ```
 
 ### Question
 
-Which approach is safer and why?
+Which approach is safer when NULL values are present and why?
 
 ---
 
@@ -146,23 +129,22 @@ Which approach is safer and why?
 
 ## Python Question 1
 
-What is the output?
-
 ```python
-def add_item(value, my_list=[]):
-    my_list.append(value)
-    return my_list
+def add_item(value, items=[]):
+    items.append(value)
+    return items
 
 print(add_item(1))
 print(add_item(2))
-print(add_item(3))
 ```
+
+### Question
+
+What is the output and why?
 
 ---
 
 ## Python Question 2
-
-What is the output?
 
 ```python
 a = [1, 2, 3]
@@ -171,45 +153,48 @@ b = a
 b.append(4)
 
 print(a)
-print(b)
 ```
 
-Explain why.
+### Question
+
+What is printed and why?
 
 ---
 
 ## Python Question 3
 
-What is the output?
-
 ```python
-x = "hello"
+x = 10
 
 def test():
+    x = 20
     print(x)
 
 test()
+print(x)
 ```
 
-What Python concept is being demonstrated?
+### Question
+
+Explain the output and the scope involved.
 
 ---
 
 ## Python Question 4
 
-What is the output?
-
 ```python
 data = {
-    "A": 10,
-    "B": 20,
-    "A": 30
+    "id": 1,
+    "id": 2,
+    "id": 3
 }
 
 print(data)
 ```
 
-Explain what happens when duplicate keys are defined.
+### Question
+
+What is the output and why?
 
 ---
 
@@ -225,7 +210,9 @@ rows = [
 ]
 ```
 
-Write Python code to keep only the latest entry for each user.
+### Question
+
+Write Python code to keep only the latest record for each user.
 
 ---
 
@@ -233,51 +220,70 @@ Write Python code to keep only the latest entry for each user.
 
 ## Snowflake Question 1
 
-Explain Snowflake's three-layer architecture and the responsibility of each layer.
+A table contains billions of records and users frequently execute:
+
+```sql
+SELECT *
+FROM orders
+WHERE country = 'US'
+AND order_date >= CURRENT_DATE - 30;
+```
+
+### Question
+
+How would you optimize this table for query performance?
 
 ---
 
 ## Snowflake Question 2
 
-What is a Virtual Warehouse?
+Explain the differences between:
 
-Discuss:
+- COPY INTO
+- Snowpipe
 
-- Compute Separation
-- Scaling Up
-- Scaling Out
+### Question
+
+When would you choose each approach?
 
 ---
 
 ## Snowflake Question 3
 
-Explain Micro-Partitions.
+A production table was accidentally updated with incorrect data.
 
-How do they improve query performance?
+### Question
+
+How would you restore the table using Snowflake features?
+
+Discuss:
+
+- Time Travel
+- Fail-safe
 
 ---
 
 ## Snowflake Question 4
 
-A table is queried frequently by:
+A dashboard query suddenly increased from 20 seconds to 6 minutes.
 
-```sql
-WHERE order_date = '2024-01-01'
-```
+### Question
 
-How does partition pruning help in this scenario?
+What steps would you follow to troubleshoot the issue?
 
 ---
 
 ## Snowflake Question 5
 
-Compare the following table types:
+Compare the following:
 
-- Permanent
-- Transient
-- Temporary
+- Standard View
+- Secure View
+- Materialized View
 
-When would you choose each one?
+### Question
+
+When should each be used?
 
 ---
 
@@ -285,63 +291,50 @@ When would you choose each one?
 
 ## AWS Question 1
 
-Design an S3-based Data Lake.
+A company receives 500 GB of CSV files daily.
 
-Explain:
+### Question
 
-- Raw Layer
-- Cleansed Layer
-- Curated Layer
+Design an AWS-based ingestion pipeline from source system to analytics layer.
 
 ---
 
 ## AWS Question 2
 
-A team wants to analyze large datasets directly from S3.
+Your Athena query scans 20 TB every time it runs.
 
-How would you decide between:
+### Question
 
-- Athena
-- Redshift
-- RDS
+How would you reduce query cost and improve performance?
 
 ---
 
 ## AWS Question 3
 
-Explain the difference between:
+You need to trigger a processing job whenever a new file arrives in S3.
 
-- AWS Glue Data Catalog
-- AWS Glue ETL
+### Question
 
-Provide practical use cases.
+Which AWS services would you use and why?
 
 ---
 
 ## AWS Question 4
 
-How would you partition S3 data to improve Athena performance and reduce costs?
+A Glue ETL job that normally runs in 10 minutes now takes 45 minutes.
 
-Provide an example folder hierarchy.
+### Question
+
+How would you troubleshoot the problem?
 
 ---
 
 ## AWS Question 5
 
-A Glue Job needs access to S3.
+Your organization has:
 
-How would you securely provide access without storing AWS Access Keys inside the code?
+- Development Account
+- Test Account
+- Production Account
 
-Explain the AWS services involved.
-
----
-
-# Self-Evaluation Checklist
-
-After answering each question, ask yourself:
-
-- Did I explain the reasoning?
-- Did I discuss edge cases?
-- Did I mention performance implications?
-- Did I mention real-world use cases?
-- Could I explain this confidently in an interview?
+### Question
