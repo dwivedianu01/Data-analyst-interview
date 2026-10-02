@@ -119,13 +119,13 @@ The default list is created once at function definition time and shared/mutated 
 
 Caches a function's return value by its arguments to avoid recomputation; unsafe for functions with side effects, unhashable arguments, or when inputs/outputs can change over time (e.g., wrapping a function that reads live data).
 
-**Q28. What's the MRO (Method Resolution Order) and why does it matter in multiple inheritance?**
+**Q28. How would you process a 10 GB CSV file in Python without loading it all into memory?**
 
-The order Python searches base classes for an attribute/method (C3 linearization); it determines which parent's method actually runs when multiple parents define the same name — check it with `ClassName.__mro__`.
+Read and process it line-by-line or in chunks (`for line in file` or `pandas.read_csv(..., chunksize=...)`), writing/aggregating incrementally instead of calling `.readlines()` or loading the full file into a list/DataFrame at once.
 
-**Q29. `__init__` vs `__new__`?**
+**Q29. How would you add retry-with-backoff around a flaky API call used in an extraction step?**
 
-`__new__` actually creates and returns the new instance (rarely overridden, used for immutable types or singletons); `__init__` initializes an already-created instance and returns `None`.
+Wrap the call in a decorator or loop that catches the specific transient exception, waits with exponential backoff (plus jitter) between attempts up to a max retry count, and re-raises (or routes to a dead-letter log) if all retries are exhausted — never retry on a non-transient error like a 4xx client error.
 
 **Q30. What's the walrus operator (`:=`) useful for?**
 
